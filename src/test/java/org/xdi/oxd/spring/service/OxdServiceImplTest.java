@@ -36,6 +36,12 @@ public class OxdServiceImplTest {
     @Inject
     private Settings settings;
 
+    // @Before
+    // public void setUp() throws Exception {
+    // ((OxdServiceImpl) oxdService).cleanUp();
+    // ((OxdServiceImpl) oxdService).initIt();
+    // }
+
     @Test
     public void registerSite() {
 	Optional<RegisterSiteResponse> registerSiteResponse = Optional

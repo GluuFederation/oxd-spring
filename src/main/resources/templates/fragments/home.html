@@ -11,11 +11,13 @@
 			<div th:unless="${isLoggedIn}" class="container">
 				<h1 class="display-4">Hello!</h1>
 				<p>This is a sample project that demonstrates how to
-					authenticate user using Gluu as authentication provider in spring
+					authenticate using Gluu as an authentication provider in spring
 					project.</p>
 			</div>
 			<div th:if="${isLoggedIn}" class="container">
-				<h1 class="display-4" style="text-align: center;">Welcome <span th:text="${user.getClaims().get('name').get(0)}"></span>!</h1>
+				<h1 class="display-4" style="text-align: center;">
+					Welcome <span th:text="${user.getClaims().get('name').get(0)}"></span>!
+				</h1>
 			</div>
 		</div>
 
