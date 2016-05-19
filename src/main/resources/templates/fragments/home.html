@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://v4-alpha.getbootstrap.com/examples/jumbotron/ -->
+<html lang="en"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout" th:with="currentPage='home'">
+
+<body>
+	<div layout:fragment="content">
+		<!-- Main jumbotron for a primary marketing message or call to action -->
+		<div class="jumbotron">
+			<div th:unless="${isLoggedIn}" class="container">
+				<h1 class="display-4">Hello!</h1>
+				<p>This is a sample project that demonstrates how to
+					authenticate user using Gluu as authentication provider in spring
+					project.</p>
+			</div>
+			<div th:if="${isLoggedIn}" class="container">
+				<h1 class="display-4" style="text-align: center;">Welcome <span th:text="${user.getClaims().get('name').get(0)}"></span>!</h1>
+			</div>
+		</div>
+
+		<div class="container">
+			<!-- Example row of columns -->
+			<div class="row">
+				<div th:unless="${isLoggedIn}" class="col-md-8 col-md-offset-2">
+					<div class="input-group">
+						<span class="input-group-addon">Current oxd-id: </span> <input
+							type="text" class="form-control" th:value="${oxdId}"
+							style="text-align: center;" readonly="" /> <span
+							class="input-group-btn"> <a class="btn btn-primary"
+							type="button" th:href="${authorizationUrl}">Login with Gluu »</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
