@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://v4-alpha.getbootstrap.com/examples/jumbotron/ -->
+<html lang="en"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout" th:with="currentPage='user'">
+
+<body>
+	<div layout:fragment="content">
+		<div class="container">
+			<!-- Example row of columns -->
+			<div class="row">
+				<form name="userForm" role="form">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myCampaignLabel">User Info</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group"
+							th:each="row : ${ user != null} ? ${user.getClaims()}">
+							<label for="id" th:text="${row.key}">id</label> <input
+								type="text" class="form-control" th:value="${row.value.get(0)}"
+								readonly="" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
