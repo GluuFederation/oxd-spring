@@ -8,7 +8,7 @@ import org.xdi.oxd.spring.web.ApplicationControllerTest;
 import org.xdi.oxd.spring.web.GluuControllerTest;
 
 @RunWith(Suite.class)
-@SuiteClasses({ ApplicationControllerTest.class, GluuControllerTest.class, OxdServiceImplTest.class })
+@SuiteClasses({ApplicationControllerTest.class, GluuControllerTest.class, OxdServiceImplTest.class})
 public class RunAllTests {
 
 }

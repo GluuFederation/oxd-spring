@@ -1,9 +1,5 @@
 package org.xdi.oxd.spring.web;
 
-import java.util.Optional;
-
-import javax.inject.Inject;
-
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +14,9 @@ import org.xdi.oxd.spring.Settings;
 import org.xdi.oxd.spring.security.GluuUser;
 import org.xdi.oxd.spring.service.OxdService;
 
+import javax.inject.Inject;
+import java.util.Optional;
+
 @Controller
 public class ApplicationController {
 
@@ -29,56 +28,58 @@ public class ApplicationController {
 
     @RequestMapping(path = "/user", method = RequestMethod.GET)
     public String user() {
-	return "fragments/user";
+        return "fragments/user";
     }
 
-    @RequestMapping(path = { "/", "/home" }, method = RequestMethod.GET)
+    @RequestMapping(path = {"/", "/home"}, method = RequestMethod.GET)
     public String home() {
-	return "fragments/home";
+        return "fragments/home";
     }
 
-    @RequestMapping(path = "/login-error", method = RequestMethod.GET)
-    public String loginError(Model model) {
-	return "fragments/login-error";
+    @RequestMapping(path = "/error", method = RequestMethod.GET)
+    public String loginError(Model model, @ModelAttribute("error") String error, @ModelAttribute("error_description") String errorDescription) {
+        model.addAttribute("error", error);
+        model.addAttribute("error_description", errorDescription);
+        return "fragments/error";
     }
 
     @ModelAttribute("isLoggedIn")
     public Boolean isLoggedIn() {
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	if (auth != null && !(auth instanceof AnonymousAuthenticationToken))
-	    return true;
-	else
-	    return false;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && !(auth instanceof AnonymousAuthenticationToken))
+            return true;
+        else
+            return false;
     }
 
     @ModelAttribute("user")
     public GluuUser getUser() {
-	if (!isLoggedIn())
-	    return null;
-	return (GluuUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!isLoggedIn())
+            return null;
+        return (GluuUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
     @ModelAttribute("logoutUrl")
     public String getLogoutUrl() {
-	if (!isLoggedIn())
-	    return null;
-	GluuUser user = getUser();
-	return Optional.of(oxdService).map(c -> c.getLogoutUrl(settings.getOxdId(), user.getIdToken()))
-		.map(c -> c.dataAsResponse(LogoutResponse.class)).map(LogoutResponse::getUri).orElse(null);
+        if (!isLoggedIn())
+            return null;
+        GluuUser user = getUser();
+        return Optional.of(oxdService).map(c -> c.getLogoutUrl(settings.getOxdId(), user.getIdToken()))
+                .map(c -> c.dataAsResponse(LogoutResponse.class)).map(LogoutResponse::getUri).orElse(null);
     }
 
     @ModelAttribute("authorizationUrl")
     public String getAuthorizationUrl() {
-	if (isLoggedIn())
-	    return null;
+        if (isLoggedIn())
+            return null;
 
-	return Optional.of(oxdService).map(c -> c.getAuthorizationUrl(settings.getOxdId()))
-		.map(c -> c.dataAsResponse(GetAuthorizationUrlResponse.class))
-		.map(GetAuthorizationUrlResponse::getAuthorizationUrl).orElse(null);
+        return Optional.of(oxdService).map(c -> c.getAuthorizationUrl(settings.getOxdId()))
+                .map(c -> c.dataAsResponse(GetAuthorizationUrlResponse.class))
+                .map(GetAuthorizationUrlResponse::getAuthorizationUrl).orElse(null);
     }
 
     @ModelAttribute("oxdId")
     public String getOxdId() {
-	return settings.getOxdId();
+        return settings.getOxdId();
     }
 }

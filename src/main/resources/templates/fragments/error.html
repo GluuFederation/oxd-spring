@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://v4-alpha.getbootstrap.com/examples/jumbotron/ -->
+<html xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      lang="en"
+      layout:decorator="layout">
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <br/>
+        <h2 th:if="!${error}" style="text-align: center;"><strong>Error!</strong></h2>
+        <div th:if="${error}" style="text-align: center;">
+            <h2 th:text="${error}"></h2>
+            <h3 th:text="${error_description}"></h3>
+        </div>
+    </div>
+</div>
+</body>
+</html>

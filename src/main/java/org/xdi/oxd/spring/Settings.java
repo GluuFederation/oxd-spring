@@ -1,7 +1,5 @@
 package org.xdi.oxd.spring;
 
-import javax.inject.Inject;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -10,12 +8,16 @@ import org.xdi.oxd.common.CommandResponse;
 import org.xdi.oxd.common.ResponseStatus;
 import org.xdi.oxd.common.response.RegisterSiteResponse;
 import org.xdi.oxd.spring.domain.AppSettings;
-import org.xdi.oxd.spring.domain.enumiration.SettingsType;
 import org.xdi.oxd.spring.repository.AppSettingsRepository;
 import org.xdi.oxd.spring.service.OxdService;
 
+import javax.inject.Inject;
+
 @Component
 public class Settings {
+
+    @Value("${oxd.server.op-host}")
+    private String opHost;
 
     @Value("${oxd.client.redirect-uri}")
     private String redirectUrl;
@@ -35,27 +37,27 @@ public class Settings {
     private String oxdId;
 
     public String getOxdId() {
-	return oxdId;
+        return oxdId;
     }
 
-    @EventListener({ ContextRefreshedEvent.class })
+    @EventListener({ContextRefreshedEvent.class})
     private void onContextStarted() {
-	AppSettings appSettings = appSettingsRepository.findOneByType(SettingsType.OXD_ID);
-	if (appSettings != null) {
-	    this.oxdId = appSettings.getValue();
-	    return;
-	}
+        AppSettings appSettings = appSettingsRepository.findOneByOpHost(opHost);
+        if (appSettings != null) {
+            this.oxdId = appSettings.getOxdId();
+            return;
+        }
 
-	CommandResponse commandResponse = oxdService.registerSite(redirectUrl, logoutUrl, postLogoutUrl);
-	if (commandResponse.getStatus().equals(ResponseStatus.ERROR))
-	    throw new RuntimeException("Can not register site");
+        CommandResponse commandResponse = oxdService.registerSite(redirectUrl, logoutUrl, postLogoutUrl);
+        if (commandResponse.getStatus().equals(ResponseStatus.ERROR))
+            throw new RuntimeException("Can not register site");
 
-	RegisterSiteResponse response = commandResponse.dataAsResponse(RegisterSiteResponse.class);
-	this.oxdId = response.getOxdId();
+        RegisterSiteResponse response = commandResponse.dataAsResponse(RegisterSiteResponse.class);
+        this.oxdId = response.getOxdId();
 
-	appSettings = new AppSettings();
-	appSettings.setType(SettingsType.OXD_ID);
-	appSettings.setValue(oxdId);
-	appSettings = appSettingsRepository.save(appSettings);
+        appSettings = new AppSettings();
+        appSettings.setOxdId(oxdId);
+        appSettings.setOpHost(opHost);
+        appSettingsRepository.save(appSettings);
     }
 }
