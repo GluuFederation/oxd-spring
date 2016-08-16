@@ -1,11 +1,11 @@
 package org.xdi.oxd.spring.security;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 
 public class GluuUser extends User {
 
@@ -15,18 +15,18 @@ public class GluuUser extends User {
     private final Map<String, List<String>> claims;
 
     public GluuUser(String idToken, Map<String, List<String>> claims,
-	    Collection<? extends GrantedAuthority> authorities) {
-	super(idToken, "", authorities);
+                    Collection<? extends GrantedAuthority> authorities) {
+        super(idToken, "", authorities);
 
-	this.idToken = idToken;
-	this.claims = claims;
+        this.idToken = idToken;
+        this.claims = claims;
     }
 
     public String getIdToken() {
-	return idToken;
+        return idToken;
     }
 
     public Map<String, List<String>> getClaims() {
-	return claims;
+        return claims;
     }
 }

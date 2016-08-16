@@ -1,9 +1,5 @@
 package org.xdi.oxd.spring.service;
 
-import java.util.Optional;
-
-import javax.inject.Inject;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +11,9 @@ import org.xdi.oxd.common.response.GetAuthorizationUrlResponse;
 import org.xdi.oxd.common.response.UpdateSiteResponse;
 import org.xdi.oxd.spring.OxdSpringApplication;
 import org.xdi.oxd.spring.Settings;
+
+import javax.inject.Inject;
+import java.util.Optional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = OxdSpringApplication.class)
@@ -31,17 +30,17 @@ public class OxdServiceImplTest {
 
     @Test
     public void updateSite() {
-	CommandResponse cr = oxdService.updateSite(settings.getOxdId(), redirectUrl);
-	Optional<UpdateSiteResponse> updateSiteResponse = Optional.of(cr)
-		.map(c -> c.dataAsResponse(UpdateSiteResponse.class));
-	Assert.assertTrue(updateSiteResponse.isPresent());
+        CommandResponse cr = oxdService.updateSite(settings.getOxdId(), redirectUrl);
+        Optional<UpdateSiteResponse> updateSiteResponse = Optional.of(cr)
+                .map(c -> c.dataAsResponse(UpdateSiteResponse.class));
+        Assert.assertTrue(updateSiteResponse.isPresent());
     }
 
     @Test
     public void getAuthorizationUrl() {
-	Optional<GetAuthorizationUrlResponse> getAuthorizationUrlResponse = Optional
-		.of(oxdService.getAuthorizationUrl(settings.getOxdId()))
-		.map(c -> c.dataAsResponse(GetAuthorizationUrlResponse.class));
-	Assert.assertTrue(getAuthorizationUrlResponse.isPresent());
+        Optional<GetAuthorizationUrlResponse> getAuthorizationUrlResponse = Optional
+                .of(oxdService.getAuthorizationUrl(settings.getOxdId()))
+                .map(c -> c.dataAsResponse(GetAuthorizationUrlResponse.class));
+        Assert.assertTrue(getAuthorizationUrlResponse.isPresent());
     }
 }

@@ -1,12 +1,9 @@
 package org.xdi.oxd.spring.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import org.xdi.oxd.spring.domain.enumiration.SettingsType;
 
 @Entity
 public class AppSettings {
@@ -15,33 +12,32 @@ public class AppSettings {
     @GeneratedValue
     private Integer id;
 
-    @Enumerated(EnumType.STRING)
-    private SettingsType type;
+    private String oxdId;
 
-    private String value;
+    @Column(unique = true)
+    private String opHost;
 
     public Integer getId() {
-	return id;
+        return id;
     }
 
     public void setId(Integer id) {
-	this.id = id;
+        this.id = id;
     }
 
-    public SettingsType getType() {
-	return type;
+    public String getOxdId() {
+        return oxdId;
     }
 
-    public void setType(SettingsType type) {
-	this.type = type;
+    public void setOxdId(String oxdId) {
+        this.oxdId = oxdId;
     }
 
-    public String getValue() {
-	return value;
+    public String getOpHost() {
+        return opHost;
     }
 
-    public void setValue(String value) {
-	this.value = value;
+    public void setOpHost(String opHost) {
+        this.opHost = opHost;
     }
-
 }

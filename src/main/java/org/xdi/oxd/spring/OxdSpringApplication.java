@@ -7,6 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class OxdSpringApplication {
 
     public static void main(String[] args) {
-	SpringApplication.run(OxdSpringApplication.class, args);
+        SpringApplication.run(OxdSpringApplication.class, args);
     }
 }
