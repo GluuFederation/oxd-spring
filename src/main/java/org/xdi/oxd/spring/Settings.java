@@ -50,7 +50,7 @@ public class Settings {
 
         CommandResponse commandResponse = oxdService.registerSite(redirectUrl, logoutUrl, postLogoutUrl);
         if (commandResponse.getStatus().equals(ResponseStatus.ERROR))
-            throw new RuntimeException("Can not register site");
+            throw new RuntimeException("Can not register site: {redirectUrl: '" + redirectUrl + "', logoutUrl: '" + logoutUrl + "', postLogoutUrl: '" + postLogoutUrl + "'}. Plese see the oxd-server.log");
 
         RegisterSiteResponse response = commandResponse.dataAsResponse(RegisterSiteResponse.class);
         this.oxdId = response.getOxdId();

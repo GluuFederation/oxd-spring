@@ -38,7 +38,7 @@ public class OxdServiceImpl implements OxdService {
         try {
             client = new CommandClient(host, port);
         } catch (IOException e) {
-            logger.error("oxd client did not initialize properly", e);
+            logger.error("oxd client did not initialized properly with: {host: '" + host + "', port: '" + port + "'}", e);
         }
     }
 
