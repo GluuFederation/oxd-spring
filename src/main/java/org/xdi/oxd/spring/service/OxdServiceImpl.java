@@ -90,7 +90,6 @@ public class OxdServiceImpl implements OxdService {
         final GetTokensByCodeParams commandParams = new GetTokensByCodeParams();
         commandParams.setOxdId(oxdId);
         commandParams.setCode(code);
-        commandParams.setScopes(Arrays.asList(new String[]{"openid", "profile", "user_name", "email"}));
         final Command command = new Command(CommandType.GET_TOKENS_BY_CODE).setParamsObject(commandParams);
 
         return client.send(command);
