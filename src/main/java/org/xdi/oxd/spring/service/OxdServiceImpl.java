@@ -86,10 +86,11 @@ public class OxdServiceImpl implements OxdService {
     }
 
     @Override
-    public CommandResponse getTokenByCode(String oxdId, String code) {
+    public CommandResponse getTokenByCode(String oxdId, String code,String state) {
         final GetTokensByCodeParams commandParams = new GetTokensByCodeParams();
         commandParams.setOxdId(oxdId);
         commandParams.setCode(code);
+        commandParams.setState(state);
         final Command command = new Command(CommandType.GET_TOKENS_BY_CODE).setParamsObject(commandParams);
 
         return client.send(command);

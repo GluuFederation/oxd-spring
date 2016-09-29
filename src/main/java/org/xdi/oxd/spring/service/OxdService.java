@@ -10,7 +10,7 @@ public interface OxdService {
 
     CommandResponse getAuthorizationUrl(String oxdId);
 
-    CommandResponse getTokenByCode(String oxdId, String code);
+    CommandResponse getTokenByCode(String oxdId, String code,String state);
 
     CommandResponse getUserInfo(String oxdId, String accessToken);
 

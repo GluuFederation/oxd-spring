@@ -39,6 +39,7 @@ public class GluuController {
 
     @RequestMapping(path = "/redirect", method = RequestMethod.GET)
     public String redirect(@RequestParam(name = "code", required = false) String code,
+                           @RequestParam(name = "state", required = false) String state,
                            @RequestParam(name = "error", required = false) String error,
                            @RequestParam(name = "error_description", required = false) String errorDescription,
                            RedirectAttributes redirectAttributes) {
@@ -50,7 +51,7 @@ public class GluuController {
         }
 
         Optional<GetTokensByCodeResponse> tokenResponse = Optional.of(oxdService)
-                .map(c -> c.getTokenByCode(settings.getOxdId(), code))
+                .map(c -> c.getTokenByCode(settings.getOxdId(), code,state))
                 .map(c -> c.dataAsResponse(GetTokensByCodeResponse.class));
         GetUserInfoResponse userInfoResponse = tokenResponse
                 .map(c -> oxdService.getUserInfo(settings.getOxdId(), c.getAccessToken()))
