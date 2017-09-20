@@ -1,6 +1,5 @@
 package org.xdi.oxd.spring.service;
 
-import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +13,6 @@ import org.xdi.oxd.common.params.*;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 @Component
@@ -48,17 +46,16 @@ public class OxdServiceImpl implements OxdService {
     }
 
     @Override
-    public CommandResponse registerSite(String redirectUrl, String logoutUrl, String postLogoutRedirectUrl) {
+    public CommandResponse registerSite(String redirectUrl, String postLogoutRedirectUrl) {
         final RegisterSiteParams commandParams = new RegisterSiteParams();
         commandParams.setOpHost(opHost);
         commandParams.setAuthorizationRedirectUri(redirectUrl);
         commandParams.setPostLogoutRedirectUri(postLogoutRedirectUrl);
-        commandParams.setClientLogoutUri(Lists.newArrayList(logoutUrl));
         commandParams.setRedirectUris(Arrays.asList(redirectUrl));
-        commandParams.setAcrValues(new ArrayList<>());
-        commandParams.setScope(Lists.newArrayList("openid", "profile"));
-        commandParams.setGrantType(Lists.newArrayList("authorization_code"));
-        commandParams.setResponseTypes(Lists.newArrayList("code"));
+        commandParams.setAcrValues(Arrays.asList("basic"));
+        commandParams.setScope(Arrays.asList("openid", "profile"));
+        commandParams.setGrantType(Arrays.asList("authorization_code"));
+        commandParams.setResponseTypes(Arrays.asList("code"));
 
         final Command command = new Command(CommandType.REGISTER_SITE).setParamsObject(commandParams);
 
@@ -79,6 +76,7 @@ public class OxdServiceImpl implements OxdService {
     @Override
     public CommandResponse getAuthorizationUrl(String oxdId) {
         final GetAuthorizationUrlParams commandParams = new GetAuthorizationUrlParams();
+        commandParams.setAcrValues(Arrays.asList(new String[]{"basic"}));
         commandParams.setOxdId(oxdId);
         final Command command = new Command(CommandType.GET_AUTHORIZATION_URL).setParamsObject(commandParams);
 

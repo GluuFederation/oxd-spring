@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.xdi.oxd.common.CommandResponse;
 import org.xdi.oxd.common.response.GetAuthorizationUrlResponse;
@@ -16,11 +16,11 @@ import javax.inject.Inject;
 import java.util.Optional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = OxdSpringApplication.class)
+@SpringBootTest(classes = OxdSpringApplication.class)
 public class OxdServiceImplTest {
 
-    @Value("${oxd.client.redirect-uri}")
-    private String redirectUrl;
+    @Value("${oxd.client.callback-uri}")
+    private String callbackUrl;
 
     @Inject
     private OxdService oxdService;
@@ -30,7 +30,7 @@ public class OxdServiceImplTest {
 
     @Test
     public void updateSite() {
-        CommandResponse cr = oxdService.updateSite(settings.getOxdId(), redirectUrl);
+        CommandResponse cr = oxdService.updateSite(settings.getOxdId(), callbackUrl);
         Optional<UpdateSiteResponse> updateSiteResponse = Optional.of(cr)
                 .map(c -> c.dataAsResponse(UpdateSiteResponse.class));
         Assert.assertTrue(updateSiteResponse.isPresent());

@@ -3,7 +3,7 @@ package org.xdi.oxd.spring.web;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = OxdSpringApplication.class)
+@SpringBootTest(classes = OxdSpringApplication.class)
 @WebAppConfiguration
 public class GluuControllerTest {
 
@@ -33,7 +33,7 @@ public class GluuControllerTest {
 
     @Test
     public void gluuRedirect() throws Exception {
-        mockMvc.perform(get("/gluu/redirect").param("session_state", "session_state").param("scope", "scope")
+        mockMvc.perform(get("/gluu/callback").param("session_state", "session_state").param("scope", "scope")
                 .param("state", "state").param("code", "code")).andExpect(view().name("redirect:/error"));
     }
 

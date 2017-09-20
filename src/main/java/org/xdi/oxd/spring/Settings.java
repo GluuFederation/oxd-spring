@@ -19,11 +19,8 @@ public class Settings {
     @Value("${oxd.server.op-host}")
     private String opHost;
 
-    @Value("${oxd.client.redirect-uri}")
-    private String redirectUrl;
-
-    @Value("${oxd.client.logout-uri}")
-    private String logoutUrl;
+    @Value("${oxd.client.callback-uri}")
+    private String callbackUrl;
 
     @Value("${oxd.client.post-logout-uri}")
     private String postLogoutUrl;
@@ -48,9 +45,9 @@ public class Settings {
             return;
         }
 
-        CommandResponse commandResponse = oxdService.registerSite(redirectUrl, logoutUrl, postLogoutUrl);
+        CommandResponse commandResponse = oxdService.registerSite(callbackUrl, postLogoutUrl);
         if (commandResponse.getStatus().equals(ResponseStatus.ERROR))
-            throw new RuntimeException("Can not register site: {redirectUrl: '" + redirectUrl + "', logoutUrl: '" + logoutUrl + "', postLogoutUrl: '" + postLogoutUrl + "'}. Plese see the oxd-server.log");
+            throw new RuntimeException("Can not register site: {callbackUrl: '" + callbackUrl + "', postLogoutUrl: '" + postLogoutUrl + "'}. Plese see the oxd-server.log");
 
         RegisterSiteResponse response = commandResponse.dataAsResponse(RegisterSiteResponse.class);
         this.oxdId = response.getOxdId();
