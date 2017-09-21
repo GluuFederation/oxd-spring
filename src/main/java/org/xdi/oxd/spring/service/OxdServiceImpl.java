@@ -20,6 +20,12 @@ public class OxdServiceImpl implements OxdService {
 
     private static final Logger logger = LoggerFactory.getLogger(OxdServiceImpl.class);
 
+    @Value("${oxd.server.scopes}")
+    private String scopes;
+
+    @Value("${oxd.server.acr-values}")
+    private String acrValues;
+
     @Value("${oxd.server.op-host}")
     private String opHost;
 
@@ -52,8 +58,8 @@ public class OxdServiceImpl implements OxdService {
         commandParams.setAuthorizationRedirectUri(redirectUrl);
         commandParams.setPostLogoutRedirectUri(postLogoutRedirectUrl);
         commandParams.setRedirectUris(Arrays.asList(redirectUrl));
-        commandParams.setAcrValues(Arrays.asList("basic"));
-        commandParams.setScope(Arrays.asList("openid", "profile"));
+        commandParams.setAcrValues(Arrays.asList(acrValues.split(",")));
+        commandParams.setScope(Arrays.asList(scopes.split(",")));
         commandParams.setGrantType(Arrays.asList("authorization_code"));
         commandParams.setResponseTypes(Arrays.asList("code"));
 
@@ -76,7 +82,8 @@ public class OxdServiceImpl implements OxdService {
     @Override
     public CommandResponse getAuthorizationUrl(String oxdId) {
         final GetAuthorizationUrlParams commandParams = new GetAuthorizationUrlParams();
-        commandParams.setAcrValues(Arrays.asList(new String[]{"basic"}));
+        commandParams.setScope(Arrays.asList(scopes.split(",")));
+        commandParams.setAcrValues(Arrays.asList(acrValues.split(",")));
         commandParams.setOxdId(oxdId);
         final Command command = new Command(CommandType.GET_AUTHORIZATION_URL).setParamsObject(commandParams);
 
