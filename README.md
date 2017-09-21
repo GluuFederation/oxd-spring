@@ -20,7 +20,16 @@ In these docs we use the [free open source Gluu Server](http://gluu.org/gluu-ser
 # Run demo application
 
 ## Prerequisites
-1. Install Java 8.
+1. Install oxd server.
+
+    ```
+    echo "deb https://repo.gluu.org/ubuntu/ trusty main" > /etc/apt/sources.list.d/gluu-repo.list
+    url https://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add -
+    pt-get update
+    apt-get install gluu-oxd-server
+    ```
+    For more info see the [official docs](https://gluu.org/docs/oxd/install/).
+2. Install Java 8.
 
     [oxd-spring](https://github.com/GluuFederation/oxd-spring) uses java 8. If java 8 already installed, skip this step.
 
@@ -51,7 +60,7 @@ In these docs we use the [free open source Gluu Server](http://gluu.org/gluu-ser
     JRE_HOME=/usr/lib/jvm/java-8-oracle/jre
     EOL
     ```
-2. Install maven.
+3. Install maven.
 
     To install the latest Apache Maven run the following command: 
     ```
@@ -67,15 +76,6 @@ In these docs we use the [free open source Gluu Server](http://gluu.org/gluu-ser
     OS name: "linux", version: "4.4.0-31-generic", arch: "amd64", family: "unix"
     ```
 ## Deploy
-
-
-# Requirements
-The oxd-spring requires the oxD Server. Please use the following link to install it
-
-* [oxd Server Installation Guide](https://oxd.gluu.org/docs/install/)
-
-
-## Install oxd-spring
 Clone oxd-spring from Github repo and run maven command to install it:
 ```
 git clone https://github.com/GluuFederation/oxd-spring.git
@@ -102,139 +102,5 @@ oxd.server.op-host=https://gluu.localhost.info
 Make sure the server already installed on your machine, or you can follow 
 [this](https://gluu.org/docs/ce/latest/installation-guide/install/) guide to install it.
 
-## Sample Code
 
-Usage of Oxd-spring is very simple. First of all we need to create parameter object related to command we are going to perform and pass to related method.
-Check Sample code below we are creating commandParams object  related to commands and calling related method with created params.
-
-### 1) register_site
-
----
-
-```java
-
-// create registerSiteParams
-try{
-        final RegisterSiteParams commandParams = new RegisterSiteParams();
-        commandParams.setOpHost(opHost);
-        commandParams.setAuthorizationRedirectUri(redirectUrl);
-        commandParams.setPostLogoutRedirectUri(postLogoutRedirectUrl);
-        commandParams.setClientLogoutUri(Lists.newArrayList(logoutUrl));
-        commandParams.setRedirectUris(Arrays.asList(redirectUrl));
-        commandParams.setAcrValues(new ArrayList<>());
-        commandParams.setScope(Lists.newArrayList("openid", "profile"));
-        commandParams.setGrantType(Lists.newArrayList("authorization_code"));
-        commandParams.setResponseTypes(Lists.newArrayList("code"));
-        final Command command = new Command(CommandType.REGISTER_SITE).setParamsObject(commandParams);
-        return client.send(command);                
- }
-catch (Exception e) 
-{
-    e.printStackTrace();
- }
- 
-//oxd_ host - oxd-server host eg.localhost or 127.0.0.1 port - oxd-server listing port (default port is 8099)
-
-```
-
-
-
-### 2) update_site_registration
-   
----
-
-```java
-
-//create UpdateSiteParams
- try {
-        final UpdateSiteParams commandParams = new UpdateSiteParams();
-        commandParams.setOxdId(oxdId);
-        commandParams.setAuthorizationRedirectUri(redirectUrl);
-        final Command command = new Command(CommandType.UPDATE_SITE).setParamsObject(commandParams);
-        return client.send(command);
-}
-catch (Exception e) {
-  e.printStackTrace();
- }
-```
-
-
-### 3) get_authorization_url
-
----
-
-```java
-
-try
-{
-        final GetAuthorizationUrlParams commandParams = new GetAuthorizationUrlParams();
-        commandParams.setOxdId(oxdId);
-        final Command command = new Command(CommandType.GET_AUTHORIZATION_URL).setParamsObject(commandParams);
-        return client.send(command);
-}
-catch (Exception e) {
-  e.printStackTrace();
- }        
-```
-
-
-
-### 4) get_tokens_by_code
-
----
-```java
-try
-{
-        final GetTokensByCodeParams commandParams = new GetTokensByCodeParams();
-        commandParams.setOxdId(oxdId);
-        commandParams.setCode(code);
-        commandParams.setState(state);
-        final Command command = new Command(CommandType.GET_TOKENS_BY_CODE).setParamsObject(commandParams);
-        return client.send(command);
-}
- catch (Exception e) {
-   e.printStackTrace();
-  }
-```
-
-
-### 5) get_user_info
-
----
-```java
- 
- try
- {
-        GetUserInfoParams params = new GetUserInfoParams();
-        params.setOxdId(oxdId);
-        params.setAccessToken(accessToken);
-        final Command command = new Command(CommandType.GET_USER_INFO).setParamsObject(params);
-        return client.send(command);
- }
-catch (Exception e) {
-  e.printStackTrace();
- }            
-            
-```
-
-### 6) get_logout_uri
-
----
-  
-```java
-//create GetLogoutUrlParams
-try{
-        GetLogoutUrlParams params = new GetLogoutUrlParams();
-        params.setOxdId(oxdId);
-        params.setIdTokenHint(idToken);
-        final Command command = new Command(CommandType.GET_LOGOUT_URI).setParamsObject(params);
-        return client.send(command);       
-}
-catch (Exception e) {
-  e.printStackTrace();
- }        
-
-```
- 
-----
 
