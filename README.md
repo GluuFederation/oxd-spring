@@ -1,9 +1,13 @@
-# oxd-spring
-The following documentation shows how to configure Java Spring apps to use oxd for authentication. 
+# oxd-spring <!-- intro -->
 
-!!! Note
+The following documentation demonstrates how to use Gluu's commercial OAuth 2.0 client software, 
+[oxd](http://oxd.gluu.org), to send users from a Spring app to an OpenID Connect Provider 
+(OP) for login. You can send users to any standard OP for login, including Google. 
+In these docs we use the [free open source Gluu Server](http://gluu.org/gluu-server) as the OP.
+
+!!! Note:
     You can also refer to the [oxd java library](https://gluu.org/docs/oxd/latest/libraries/java/) for more details on java classes.
-
+    
 ## Requirements
 The oxd-spring requires the oxD Server. Please use the following link to install it
 

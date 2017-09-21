@@ -37,7 +37,7 @@ public class GluuController {
     @Inject
     private Settings settings;
 
-    @RequestMapping(path = "/redirect", method = RequestMethod.GET)
+    @RequestMapping(path = "/callback", method = RequestMethod.GET)
     public String redirect(@RequestParam(name = "code", required = false) String code,
                            @RequestParam(name = "state", required = false) String state,
                            @RequestParam(name = "error", required = false) String error,
@@ -79,8 +79,9 @@ public class GluuController {
     }
 
     @ExceptionHandler(BadCredentialsException.class)
-    public String handleAllException() {
+    public String handleAllException(BadCredentialsException e, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("error", e.getCause());
+        redirectAttributes.addAttribute("error_description", e.getMessage());
         return "redirect:/error";
     }
-
 }
