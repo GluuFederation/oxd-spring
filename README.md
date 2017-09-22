@@ -17,7 +17,18 @@ In these docs we use the [free open source Gluu Server](http://gluu.org/gluu-ser
     You can also refer to the [oxd java library](https://gluu.org/docs/oxd/latest/libraries/java/) for more details on java classes.
   
 # How it works
+1. What happens when application is started.
 
+    The first time you run the application, it tries to register site using the parameters specified in [application.properties](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/resources/application.properties). If registration was successful, then [oxd.server.op-host](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/resources/application.properties#L19) and received from oxd server `oxdId` are stored in the H2 database (which is embedded in oxd-spring-0.0.1-SNAPSHOT.jar). Next time you run application with the same [oxd.server.op-host](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/resources/application.properties#L19), it will obtain `oxdId` from database. [Here](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/java/org/xdi/oxd/spring/Settings.java#L41) is the source code that does this.
+    
+2. H2 databse
+
+    This example is using H2 database to store `oxdId`. You can access the database console by pointing browser to `https://127.0.0.1:8443/h2-console`. By default [expiration time](https://github.com/GluuFederation/community-edition-setup/blob/master/templates/oxauth-config.json#L185) for newly registered clients/sites is set to 24 hours, so if client is already expired you need to remove the record from database, then re-run the application.
+    
+3. Pages
+    - /home this is welcome page from which you can log in
+    - /user this is protected page which becomes available after successful login.
+    
 # Run demo application
 
 ## Prerequisites
