@@ -5,6 +5,7 @@
 3. [Run demo application](https://github.com/GluuFederation/oxd-spring#run-demo-application)
     1. [Prerequisites](https://github.com/GluuFederation/oxd-spring#prerequisites)
     2. [Deploy](https://github.com/GluuFederation/oxd-spring#deploy)
+4. [Customize](https://github.com/GluuFederation/oxd-spring#customize-oxd-spring)
 
 # About
 The following documentation demonstrates how to use Gluu's commercial OAuth 2.0 client software, 
@@ -82,25 +83,38 @@ git clone https://github.com/GluuFederation/oxd-spring.git
 cd oxd-spring 
 mvn clean package -Dmaven.test.skip=true
 ```
-
-Now you can run the executable jar:
+Make sure that oxd server is running. Now you can run the executable jar:
 ```
 java -jar target/oxd-spring-0.0.1-SNAPSHOT.jar
 ```
 
-Point browser to `https://127.0.0.1:8443/`. 
-
-***Note:*** oxd-server must run on *localhost* and be bound to port: *8099*, otherwise you'll need to configure `oxd-spring/src/main/resources/application.properties` file.
+Point the browser to `https://127.0.0.1:8443/`. 
 
 ## Customize oxd-spring
-To use your own server as openid provider you need to modify `oxd.server.op-host` property from `oxd-spring/src/main/resources/application.properties`, e.g:
+By default [oxd-spring](https://github.com/GluuFederation/oxd-spring) uses [ce-dev.gluu.org](https://ce-dev.gluu.org) as openid provider, however you can easelly point it at your own server. There are two ways you can do it:
+1. Modify [oxd.server.op-host](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/resources/application.properties#L19) property, e.g:
+    ```
+    oxd.server.op-host=https://your.gluu.server
+    ```
+    Build and run the application by running the following commands:
+    ```
+    mvn clean package -Dmaven.test.skip=true
+    java -jar target/oxd-spring-0.0.1-SNAPSHOT.jar
+    ```
+2. Or you can just launch the application with additional parameter, e.g:
+    ```
+    java -jar target/oxd-spring-0.0.1-SNAPSHOT.jar --oxd.server.op-host=https://your.gluu.server
+    ```
+[oxd-spring](https://github.com/GluuFederation/oxd-spring) also allows configuring other parameters:
+- [oxd.server.scopes](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/resources/application.properties#L23) a list of comma separated scopes, this parameter used during [client registration](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/java/org/xdi/oxd/spring/service/OxdServiceImpl.java#L55) and [obtaining login url](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/java/org/xdi/oxd/spring/service/OxdServiceImpl.java#L83)
 
+- [oxd.server.acr-values](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/resources/application.properties#L22) a list of comma separated acr values, this parameter used during [client registration](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/java/org/xdi/oxd/spring/service/OxdServiceImpl.java#L55) and [obtaining login url](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/java/org/xdi/oxd/spring/service/OxdServiceImpl.java#L83)
+
+- [oxd.server.port](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/resources/application.properties#L21) used to [create connection](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/java/org/xdi/oxd/spring/service/OxdServiceImpl.java#L43) with oxd server
+
+- [oxd.server.host](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/resources/application.properties#L20) used to [create connection](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/java/org/xdi/oxd/spring/service/OxdServiceImpl.java#L43) with oxd server
+
+These parameters could be modified in the same way as [oxd.server.op-host](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/resources/application.properties#L19), e.g:
 ```
-oxd.server.op-host=https://gluu.localhost.info
+java -jar target/oxd-spring-0.0.1-SNAPSHOT.jar --oxd.server.host=https://your.gluu.server --oxd.server.port=your.port --oxd.server.acr-values=basic,u2f --oxd.server.scopes=openid,profile,email,phone
 ```
-
-Make sure the server already installed on your machine, or you can follow 
-[this](https://gluu.org/docs/ce/latest/installation-guide/install/) guide to install it.
-
-
-
