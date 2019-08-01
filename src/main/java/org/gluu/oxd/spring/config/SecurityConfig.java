@@ -1,11 +1,11 @@
-package org.xdi.oxd.spring.config;
+package org.gluu.oxd.spring.config;
 
+import org.gluu.oxd.spring.security.AuthoritiesConstants;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.xdi.oxd.spring.security.AuthoritiesConstants;
 
 @Configuration
 @EnableWebSecurity

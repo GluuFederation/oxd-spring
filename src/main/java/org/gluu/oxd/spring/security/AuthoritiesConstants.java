@@ -1,4 +1,4 @@
-package org.xdi.oxd.spring.security;
+package org.gluu.oxd.spring.security;
 
 public final class AuthoritiesConstants {
 
