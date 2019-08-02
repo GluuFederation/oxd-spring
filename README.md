@@ -40,15 +40,15 @@ In this tutorial we demonstrate how a java spring web application can leverage o
     
 1. In the cloned `oxd-spring` project modify `${OXD_SPRING_HOME}\src\main\resources\application.properties` file to change the below configuration parameters:
 
-S.No. | Property Name | Property Description | Example
-------|---------------|----------------------|---------
-1 | server.port | The port of running `oxd-spring` application. | server.port=8080
-2 | oxd.server.op-host | Provide the URL of your OpenID Provider (OP). | oxd.server.op-host=https://www.your-ophost.com
-3 | oxd.server.host | Hostname of oxd-server | oxd.server.host=www.your-oxd-server.com
-4 | oxd.server.port | Port of oxd-server | oxd.server.port=8443
-5 | oxd.server.acr-values | Comma separated preferred authentication method the client will receive from the OP. | oxd.server.acr-values=basic
-6 | oxd.server.scopes | Comma separated scopes that the Client is declaring that it will restrict itself to using. | oxd.server.scopes=openid,profile,uma_protection,oxd
-7 | oxd.server.grant-types | Comma separated Grant Types that the Client is declaring that it will restrict itself to using. | oxd.server.grant-types=authorization_code,client_credentials
+    S.No. | Property Name | Property Description | Example
+    ------|---------------|----------------------|---------
+    1 | server.port | The port of running `oxd-spring` application. | server.port=8080
+    2 | oxd.server.op-host | Provide the URL of your OpenID Provider (OP). | oxd.server.op-host=https://www.your-ophost.com
+    3 | oxd.server.host | Hostname of oxd-server | oxd.server.host=www.your-oxd-server.com
+    4 | oxd.server.port | Port of oxd-server | oxd.server.port=8443
+    5 | oxd.server.acr-values | Comma separated preferred authentication methods the client will receive from the OP. | oxd.server.acr- values=basic
+    6 | oxd.server.scopes | Comma separated scopes the Client is declaring that it will restrict itself to using. | oxd.server.scopes=openid,profile,uma_protection,oxd
+    7 | oxd.server.grant-types | Comma separated Grant Types the Client is declaring that it will restrict itself to using. | oxd.server.grant-types=authorization_code,client_credentials
 
 1. Change directory to the cloned `oxd-spring` project (${OXD_SPRING_HOME}) and run maven command to build the executable jar:
 
@@ -64,9 +64,7 @@ S.No. | Property Name | Property Description | Example
     ```
     java -jar target/oxd-spring-4.0-SNAPSHOT.jar
     ```
-    
 
-
-    The first time you run the application, it tries to register site using the parameters specified in [application.properties](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/resources/application.properties). If registration was successful, then [oxd.server.op-host](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/resources/application.properties#L19) and received from oxd server `oxdId` are stored in the H2 database (which is embedded in oxd-spring-0.0.1-SNAPSHOT.jar). Next time you run the application with the same [oxd.server.op-host](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/resources/application.properties#L19), it will obtain `oxdId` from database. [Here](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/java/org/xdi/oxd/spring/Settings.java#L41) is the source code that does this.
+    The first time you run the application, it tries to register site using the parameters specified in [application.properties](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/resources/application.properties). If registration was successful, then [oxd.server.op-host](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/resources/application.properties#L19) and received from oxd server `oxdId` are stored in the H2 database (which is embedded in oxd-spring-4.0-SNAPSHOT.jar). Next time you run the application with the same [oxd.server.op-host](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/resources/application.properties#L19), it will obtain `oxdId` from database. [Here](https://github.com/GluuFederation/oxd-spring/blob/master/src/main/java/org/xdi/oxd/spring/Settings.java#L41) is the source code that does this.
     
-1. Open a browser and point the browser to https://127.0.0.1:8080/. This will display Home Page of oxd-spring application with `Login To Gluu` button. Click on the button to log into application using OP-Host. 
+1. Open a browser and point the browser to https://127.0.0.1:8080/. This will display Home Page of oxd-spring application with `Login To Gluu` button. Click on the button to log into application using OAuth 2.0 security. 
