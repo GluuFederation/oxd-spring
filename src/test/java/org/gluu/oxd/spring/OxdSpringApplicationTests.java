@@ -1,5 +1,6 @@
-package org.xdi.oxd.spring;
+package org.gluu.oxd.spring;
 
+import org.gluu.oxd.spring.OxdSpringApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

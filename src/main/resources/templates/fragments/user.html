@@ -17,7 +17,7 @@
                     <div class="form-group"
                          th:each="row : ${ user != null} ? ${user.getClaims()}">
                         <label th:text="${row.key}">id</label> <input
-                            type="text" class="form-control" th:value="${row.value.get(0)}"
+                            type="text" class="form-control" th:value="${row.value}"
                             readonly=""/>
                     </div>
                 </div>

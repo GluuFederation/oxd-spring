@@ -1,5 +1,6 @@
-package org.xdi.oxd.spring.web;
+package org.gluu.oxd.spring.web;
 
+import org.gluu.oxd.spring.OxdSpringApplication;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +9,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
-import org.xdi.oxd.spring.OxdSpringApplication;
 
 import javax.inject.Inject;
 
