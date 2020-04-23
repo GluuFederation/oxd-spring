@@ -1,5 +1,10 @@
-package org.xdi.oxd.spring.web;
+package org.gluu.oxd.spring.web;
 
+import org.gluu.oxd.common.response.GetAuthorizationUrlResponse;
+import org.gluu.oxd.common.response.GetLogoutUriResponse;
+import org.gluu.oxd.spring.Settings;
+import org.gluu.oxd.spring.security.GluuUser;
+import org.gluu.oxd.spring.service.OxdService;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,11 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.xdi.oxd.common.response.GetAuthorizationUrlResponse;
-import org.xdi.oxd.common.response.LogoutResponse;
-import org.xdi.oxd.spring.Settings;
-import org.xdi.oxd.spring.security.GluuUser;
-import org.xdi.oxd.spring.service.OxdService;
 
 import javax.inject.Inject;
 import java.util.Optional;
@@ -65,7 +65,7 @@ public class ApplicationController {
             return null;
         GluuUser user = getUser();
         return Optional.of(oxdService).map(c -> c.getLogoutUrl(settings.getOxdId(), user.getIdToken()))
-                .map(c -> c.dataAsResponse(LogoutResponse.class)).map(LogoutResponse::getUri).orElse(null);
+                .map(GetLogoutUriResponse::getUri).orElse(null);
     }
 
     @ModelAttribute("authorizationUrl")
@@ -74,7 +74,6 @@ public class ApplicationController {
             return null;
 
         return Optional.of(oxdService).map(c -> c.getAuthorizationUrl(settings.getOxdId()))
-                .map(c -> c.dataAsResponse(GetAuthorizationUrlResponse.class))
                 .map(GetAuthorizationUrlResponse::getAuthorizationUrl).orElse(null);
     }
 

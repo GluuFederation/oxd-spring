@@ -1,4 +1,4 @@
-package org.xdi.oxd.spring.security;
+package org.gluu.oxd.spring.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

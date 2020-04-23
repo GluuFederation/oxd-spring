@@ -1,4 +1,4 @@
-package org.xdi.oxd.spring.domain;
+package org.gluu.oxd.spring.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +16,11 @@ public class AppSettings {
 
     @Column(unique = true)
     private String opHost;
+
+    @Column(unique = true)
+    private String clientId;
+
+    private String clientSecret;
 
     public Integer getId() {
         return id;
@@ -39,5 +44,21 @@ public class AppSettings {
 
     public void setOpHost(String opHost) {
         this.opHost = opHost;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    public String getClientSecret() {
+        return clientSecret;
+    }
+
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
     }
 }
