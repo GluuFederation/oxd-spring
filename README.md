@@ -16,9 +16,9 @@ In this tutorial we demonstrate how a java spring web application can leverage o
 
     Learn how to deploy Gluu [in the docs](https://gluu.org/docs/ce/installation-guide/).
 
-1. oxd-server 4.0
+1. oxd-server 4.x
 
-    Download and install [oxd-server 4.0](https://gluu.org/docs/oxd/4.0/). For the purposes of this demo app, built-in default configuration files will work.
+    Download and install [oxd-server 4.x](https://gluu.org/docs/oxd/). For the purposes of this demo app, built-in default configuration files will work.
     
 ## Run
 
@@ -30,12 +30,6 @@ In this tutorial we demonstrate how a java spring web application can leverage o
 
     ```
     git clone https://github.com/GluuFederation/oxd-spring.git
-    ```
-
-    After the project is cloned switch to version_4.0 branch using below command.
-
-    ```
-    git checkout version_4.0
     ```
     
 1. In the cloned `oxd-spring` project modify `${OXD_SPRING_HOME}\src\main\resources\application.properties` file to change the below configuration parameters:
