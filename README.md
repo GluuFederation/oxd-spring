@@ -56,7 +56,7 @@ In this tutorial we demonstrate how a java spring web application can leverage o
 1. Now you can run the executable jar using below command:
 
     ```
-    java -jar target/oxd-spring-4.2.0-SNAPSHOT.jar
+    java -jar target/oxd-spring-4.2-SNAPSHOT.jar
     ```
 
     The first time you run the application, it tries to register site using the parameters specified in [application.properties](https://github.com/GluuFederation/oxd-spring/blob/version_4.0/src/main/resources/application.properties). If registration was successful, then [oxd.server.op-host](https://github.com/GluuFederation/oxd-spring/blob/version_4.0/src/main/resources/application.properties#L19) and received from oxd server `oxdId` are stored in the H2 database (which is embedded in oxd-spring-4.0-SNAPSHOT.jar). Next time you run the application with the same [oxd.server.op-host](https://github.com/GluuFederation/oxd-spring/blob/version_4.0/src/main/resources/application.properties#L19), it will obtain `oxdId` from database.
