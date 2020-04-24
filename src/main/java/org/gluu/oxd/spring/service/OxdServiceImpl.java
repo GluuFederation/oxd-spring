@@ -70,7 +70,6 @@ public class OxdServiceImpl implements OxdService {
         params.setPostLogoutRedirectUris(Lists.newArrayList(postLogoutRedirectUrl.split(",")));
         params.setRedirectUris(Lists.newArrayList(redirectUrl.split(",")));
         params.setScope(Lists.newArrayList(scopes.split(",")));
-        params.setTrustedClient(true);
         params.setGrantTypes(Lists.newArrayList(grantTypes.split(",")));
         params.setClientName("sampleapp-client-extension-" + System.currentTimeMillis());
         //params.setResponseTypes(Lists.newArrayList("code"));
@@ -87,7 +86,7 @@ public class OxdServiceImpl implements OxdService {
         params.setOxdId(oxdId);
         params.setRedirectUris(Lists.newArrayList(redirectUrl));
 
-        final UpdateSiteResponse resp = client.updateSite(getClientToken(oxdId), params);
+        final UpdateSiteResponse resp = client.updateSite(getClientToken(oxdId), null, params);
         return resp;
     }
 
@@ -98,7 +97,7 @@ public class OxdServiceImpl implements OxdService {
         cmdParams.setAcrValues(Lists.newArrayList(acrValues.split(",")));
         cmdParams.setScope(Lists.newArrayList(scopes.split(",")));
 
-        final GetAuthorizationUrlResponse resp = client.getAuthorizationUrl(getClientToken(oxdId), cmdParams);
+        final GetAuthorizationUrlResponse resp = client.getAuthorizationUrl(getClientToken(oxdId), null, cmdParams);
         return resp;
     }
 
@@ -109,7 +108,7 @@ public class OxdServiceImpl implements OxdService {
         cmdParams.setCode(code);
         cmdParams.setState(state);
 
-        final GetTokensByCodeResponse2 resp = client.getTokenByCode(getClientToken(oxdId), cmdParams);
+        final GetTokensByCodeResponse2 resp = client.getTokenByCode(getClientToken(oxdId), null, cmdParams);
         return resp;
     }
 
@@ -118,7 +117,7 @@ public class OxdServiceImpl implements OxdService {
         GetUserInfoParams cmdParams = new GetUserInfoParams();
         cmdParams.setOxdId(oxdId);
         cmdParams.setAccessToken(accessToken);
-        JsonNode resp = client.getUserInfo(getClientToken(oxdId), cmdParams);
+        JsonNode resp = client.getUserInfo(getClientToken(oxdId), null, cmdParams);
 
         return resp;
     }
@@ -132,7 +131,7 @@ public class OxdServiceImpl implements OxdService {
         params.setState(UUID.randomUUID().toString());
         params.setSessionState(UUID.randomUUID().toString()); // here must be real session instead of dummy UUID
 
-        final GetLogoutUriResponse resp = client.getLogoutUri(getClientToken(oxdId), params);
+        final GetLogoutUriResponse resp = client.getLogoutUri(getClientToken(oxdId), null, params);
 
         return resp;
     }
