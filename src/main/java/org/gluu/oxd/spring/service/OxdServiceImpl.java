@@ -72,7 +72,7 @@ public class OxdServiceImpl implements OxdService {
         params.setScope(Lists.newArrayList(scopes.split(",")));
         params.setGrantTypes(Lists.newArrayList(grantTypes.split(",")));
         params.setClientName("sampleapp-client-extension-" + System.currentTimeMillis());
-        //params.setResponseTypes(Lists.newArrayList("code"));
+        params.setResponseTypes(Lists.newArrayList("code"));
         params.setAcrValues(Lists.newArrayList(acrValues.split(",")));
 
         final RegisterSiteResponse resp = client.registerSite(params);
