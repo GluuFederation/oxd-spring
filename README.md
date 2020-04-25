@@ -1,6 +1,6 @@
 # oxd-spring <!-- intro -->
 
-In this tutorial we demonstrate how a java spring web application can leverage oxd 4.0 for SSO using the authorization code flow.
+In this tutorial we demonstrate how a java spring web application can leverage oxd 4.2 for SSO using the authorization code flow.
 
 ## Prerequisites
 
